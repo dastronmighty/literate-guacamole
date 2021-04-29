@@ -1,10 +1,49 @@
 import numpy as np
 
 
-class SGD:
+def get_batches(X, Y, batch_size=32, seed=42):
+    np.random.seed(seed)
+    n = X.shape[0]
+    mini_batches = []
 
-    def __init__(self, learning_rate):
+    permutation = list(np.random.permutation(n))
+    X_perm = X[permutation]
+    Y_perm = Y[permutation]
+
+    count = int(np.floor(n / batch_size)) # number of full batches we cna make
+    for i in range(count):
+        X_mini_batch = X_perm[(i * batch_size):((i + 1) * batch_size)]
+        Y_mini_batch = Y_perm[(i * batch_size):((i + 1) * batch_size)]
+        mini_batch = (X_mini_batch, Y_mini_batch)
+        mini_batches.append(mini_batch)
+
+    if n % batch_size != 0:
+        X_mini_batch = X_perm[(count * batch_size):]
+        Y_mini_batch = Y_perm[(count * batch_size):]
+        mini_batch = (X_mini_batch, Y_mini_batch)
+        mini_batches.append(mini_batch)
+    return mini_batches
+
+
+class Optimiser:
+    
+    def __init__(self, learning_rate, name):
         self.lr = learning_rate
+        self.name = name
+
+    def update_params(self, model, grads):
+        pass
+
+    def backwards_step(self, y, a_out, model, loss, cache):
+        da_wrt_loss = loss.backward(y, a_out)
+        grads = model.backward(da_wrt_loss, cache)
+        self.update_params(model, grads)
+
+
+class SGD(Optimiser):
+
+    def __init__(self, params, learning_rate):
+        super(SGD, self).__init__(learning_rate, "SGD")
 
     def update_params(self, model, grads):
         for i, gl in enumerate(grads["layers"]):
@@ -15,9 +54,10 @@ class SGD:
         return model
 
 
-class SDGMomentum():
+class SGDMomentum(Optimiser):
 
-    def __init__(self, params, learning_rate, beta):
+    def __init__(self, params, learning_rate, beta=0.9):
+        super(SGDMomentum, self).__init__(learning_rate, "SGDMomentum")
         self.lr = learning_rate
         self.beta = beta
         self.v = []
@@ -37,8 +77,10 @@ class SDGMomentum():
         return model
     
     
-class ADAM:
-    def __init__(self, params, learning_rate, beta1, beta2):
+class ADAM(Optimiser):
+
+    def __init__(self, params, learning_rate, beta1=0.9, beta2=0.999):
+        super(ADAM, self).__init__(learning_rate, "ADAM")
         self.lr = learning_rate
         self.beta1 = beta1
         self.beta2 = beta2
@@ -60,6 +102,7 @@ class ADAM:
 
     def update_params(self, model, grads):
         self.t += 1
+
         for i, gl in enumerate(grads["layers"]):
             self.v[i]["dvW"] = (self.beta1 * self.v[i]["dvW"]) + ((1-self.beta1)*gl["dW"])
             self.v[i]["dvb"] = (self.beta1 * self.v[i]["dvb"]) + ((1 - self.beta1) * gl["db"])
@@ -75,3 +118,4 @@ class ADAM:
             model.params["layers"][i]["b"] -= (bGrad * self.lr)
 
         return model
+

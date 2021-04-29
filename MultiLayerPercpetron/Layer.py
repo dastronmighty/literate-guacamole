@@ -1,11 +1,25 @@
 from MultiLayerPercpetron.Activate import Activate
 
+
 class Layer:
+    """
+    A single layer of a Multi-Layer Perceptron
+    """
 
     def __init__(self, act_f):
+        """
+        :param act_f: The activation function to use
+        """
         self.activation = Activate(act_f)
 
     def linear_forward(self, W, b, A_prev):
+        """
+        forward propagate through the linear this layer
+        :param W: The weights to use
+        :param b: the bias('s) to use
+        :param A_prev: the previous activation to use
+        :return: the
+        """
         Z = A_prev @ W + b
         cache = {"W": W, "b": b, "A_prev": A_prev}
         return Z, cache

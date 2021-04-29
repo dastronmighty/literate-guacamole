@@ -1,61 +1,69 @@
-import numpy as np
+from MultiLayerPercpetron.Optimisers import get_batches
 
-from MultiLayerPercpetron.Utils import show_gradients
-from MultiLayerPercpetron.Metrics import accuracy
 
 def fit_model(model,
-              batches,
+              x_train,
+              y_train,
+              batch_size,
               optim,
+              loss_func,
+              logger,
               epochs=1000,
-              metrics={},
-              pfunc=(lambda x: x),
-              file=None,
-              verbose=None,
-              verbose_precision=6,
-              X_test=None, Y_test=None):
-    losses = []
-    train_metrics = {}
-    test_metrics = {}
-    for k in metrics.keys():
-        train_metrics[k] = []
-        test_metrics[k] = []
+              prediction_func=(lambda x: x),
+              y_func=(lambda x: x),
+              plotter=None,
+              x_test=None,
+              y_test=None):
 
-    for i in range(epochs + 1):
+    logger.log_summary(model)
+    batches = get_batches(x_train, y_train, batch_size)
+    test_available = (x_test is not None) and (y_test is not None)
+
+    test_batches = None
+    if test_available:
+        test_batches = get_batches(x_test, y_test, batch_size)
+
+    if plotter is not None:
+        plotter.plot_results(model, f"Before Trained", x_train, y_train, x_test, y_test)
+
+    for epoch in range(epochs + 1):
+        logger.update_epoch(epoch, test_available)
         for xb, yb, in batches:
-            A, loss, caches = model.forward(xb, yb)
-            grads = model.backward(A, yb, caches)
-            optim.update_params(model, grads)
-            losses.append(loss)
+            a_out, caches = model.forward(xb)
+            i_loss = loss_func.forward(yb, a_out)
+            logger.log_loss(i_loss)
+            logger.log_mets(prediction_func(a_out), y_func(yb))
+            optim.backwards_step(yb, a_out, model, loss_func, caches)
+        logger.compress_stats(len(batches))
 
-            for k in metrics.keys():
-                train_metrics[k].append(metrics[k](pfunc(A), yb))
+        if test_available:
+            for xb, yb, in test_batches:
+                test_a_out, _ = model.forward(xb)
+                i_loss = loss_func.forward(yb, test_a_out)
+                logger.log_loss(i_loss, False)
+                logger.log_mets(prediction_func(test_a_out), y_func(yb), False)
+            logger.compress_stats(len(test_batches), False)
 
-        if X_test is not None and Y_test is not None:
-            for k in metrics.keys():
-                test_metrics[k].append(metrics[k](model.predict(X_test, pfunc), Y_test))
+        logger.log(epoch, epochs, test_available)
 
-        if verbose is not None:
-            if i % verbose == 0 and i > 1:
-                ve = f"Epoch {str(i).rjust(verbose_precision)}/{str(epochs).ljust(verbose_precision)}"
-                lastloss = losses[-1]
-                ve += f" - Last Loss : {np.round(lastloss, verbose_precision)}"
-                loss = np.array(losses).mean()
-                ve += f" - Avg. Loss : {np.round(loss, verbose_precision)}"
+        if plotter is not None:
+            if logger.verbose_epoch(epoch):
+                plotter.plot_results(model,
+                                     f"Training epoch {epoch} Loss {str(logger.losses[-1]).replace('.', '_')[0:4]}",
+                                     x_train,
+                                     y_train,
+                                     x_test,
+                                     y_test)
 
-                for k in metrics.keys():
-                    lm = train_metrics[k][-1]
-                    mm = np.array(train_metrics[k]).mean()
-                    ve += f" - Last {k} : {lm} - Avg. {k} : {mm}"
+        if logger.check_early_stopping():
+            break
 
-                if X_test is not None and Y_test is not None:
-                    for k in metrics.keys():
-                        lm = test_metrics[k][-1]
-                        mm = np.array(test_metrics[k]).mean()
-                        ve += f" - Last test {k} : {lm} - Avg. test {k} : {mm}"
+    if plotter is not None:
+        plotter.plot_results(model, f"Trained", x_train, y_train, x_test, y_test)
+        plotter.plot_mets(*logger.get_loss_to_plot())
+        for k in logger.metrics.keys():
+            plotter.plot_mets(*logger.get_met_to_plot(k))
 
-                if file is not None:
-                    file.write(ve+"\n")
-                else:
-                    print(ve)
+    return model, logger.losses
 
-    return model, losses
+

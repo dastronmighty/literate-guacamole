@@ -1,0 +1,16 @@
+====================
+Input size : 4
+Output size : 1
+====================
+layer 0 - sigmoid
+	Weights = 4x5
+	Biases = 1x5
+layer 1 - linear
+	Weights = 5x1
+	Biases = 1x1
+====================
+Trainable Parameters : 31
+====================
+Epoch      0/100000 - Last Loss : 0.482491 - Avg. Loss : 0.482491 - Last Test Loss : 0.378491 - Avg. Test Loss : 0.378491 - Last MAE : 0.612888086489183 - Avg. MAE : 0.612888086489183 - Last test MAE : 0.5365033963247834 - Avg. test MAE : 0.5365033963247834 - Last MSE : 0.48249144514217207 - Avg. MSE : 0.48249144514217207 - Last test MSE : 0.3784910010793453 - Avg. test MSE : 0.3784910010793453 - Last RMSE : 0.6923795253807536 - Avg. RMSE : 0.6923795253807536 - Last test RMSE : 0.6123147937030826 - Avg. test RMSE : 0.6123147937030826
+Epoch   1000/100000 - Last Loss : 0.026133 - Avg. Loss : 0.034554 - Last Test Loss : 0.019934 - Avg. Test Loss : 0.025792 - Last MAE : 0.1219075937403497 - Avg. MAE : 0.1318624866299827 - Last test MAE : 0.11700670083254183 - Avg. test MAE : 0.12418891350546458 - Last MSE : 0.026133190212895705 - Avg. MSE : 0.034553545844739075 - Last test MSE : 0.019934364374851677 - Avg. test MSE : 0.025791950110264972 - Last RMSE : 0.15604281750611398 - Avg. RMSE : 0.16810258339214945 - Last test RMSE : 0.14022827148687192 - Avg. test RMSE : 0.14858304625640423
+Early stopping on epoch 1179

@@ -1,0 +1,16 @@
+====================
+Input size : 16
+Output size : 26
+====================
+layer 0 - sigmoid
+	Weights = 16x10
+	Biases = 1x10
+layer 1 - softmax
+	Weights = 10x26
+	Biases = 1x26
+====================
+Trainable Parameters : 456
+====================
+Epoch      0/1000   - Last Loss : 4.887047 - Avg. Loss : 4.887047 - Last Test Loss : 4.744693 - Avg. Test Loss : 4.744693 - Last acc : 0.0713125 - Avg. acc : 0.0713125 - Last test acc : 0.068 - Avg. test acc : 0.068 - Last f1 : 0.19472374640802334 - Avg. f1 : 0.19472374640802334 - Last test f1 : 0.1697198782545556 - Avg. test f1 : 0.1697198782545556
+Epoch     10/1000   - Last Loss : 4.815839 - Avg. Loss : 4.823497 - Last Test Loss : 4.775808 - Avg. Test Loss : 4.77607 - Last acc : 0.073625 - Avg. acc : 0.07371022727272726 - Last test acc : 0.0655 - Avg. test acc : 0.06427272727272727 - Last f1 : 0.19217965269705414 - Avg. f1 : 0.19259676509371945 - Last test f1 : 0.17413603595533575 - Avg. test f1 : 0.17236726923563087
+Early stopping on epoch 15

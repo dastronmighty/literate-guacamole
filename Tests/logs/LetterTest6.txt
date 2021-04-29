@@ -1,0 +1,20 @@
+====================
+Input size : 16
+Output size : 26
+====================
+layer 0 - sigmoid
+	Weights = 16x16
+	Biases = 1x16
+layer 1 - softmax
+	Weights = 16x26
+	Biases = 1x26
+====================
+Trainable Parameters : 714
+====================
+Epoch      0/1000   - Last Loss : 3.641313 - Avg. Loss : 3.641313 - Last Test Loss : 2.817769 - Avg. Test Loss : 2.817769 - Last acc : 0.42325 - Avg. acc : 0.42325 - Last test acc : 0.57075 - Avg. test acc : 0.57075 - Last f1 : 0.544328799057166 - Avg. f1 : 0.544328799057166 - Last test f1 : 0.6416904111268521 - Avg. test f1 : 0.6416904111268521
+Epoch     10/1000   - Last Loss : 1.665736 - Avg. Loss : 2.070185 - Last Test Loss : 1.751276 - Avg. Test Loss : 2.020236 - Last acc : 0.743125 - Avg. acc : 0.6827897727272728 - Last test acc : 0.72125 - Avg. test acc : 0.6892727272727274 - Last f1 : 0.775182170153344 - Avg. f1 : 0.7300549999780789 - Last test f1 : 0.7549686025622059 - Avg. test f1 : 0.7324139150131272
+Epoch     20/1000   - Last Loss : 1.558453 - Avg. Loss : 1.846035 - Last Test Loss : 1.646073 - Avg. Test Loss : 1.861336 - Last acc : 0.75675 - Avg. acc : 0.7152380952380952 - Last test acc : 0.74375 - Avg. test acc : 0.7108809523809523 - Last f1 : 0.7842507120879348 - Avg. f1 : 0.7540285296891768 - Last test f1 : 0.7743386535623008 - Avg. test f1 : 0.7488460236959181
+Epoch     30/1000   - Last Loss : 1.500324 - Avg. Loss : 1.74214 - Last Test Loss : 1.55131 - Avg. Test Loss : 1.775244 - Last acc : 0.769625 - Avg. acc : 0.7309455645161292 - Last test acc : 0.76475 - Avg. test acc : 0.7256693548387098 - Last f1 : 0.7945315324086203 - Avg. f1 : 0.7656437020116645 - Last test f1 : 0.7931525906841622 - Avg. test f1 : 0.7608783853763336
+Epoch     40/1000   - Last Loss : 1.46516 - Avg. Loss : 1.678076 - Last Test Loss : 1.505213 - Avg. Test Loss : 1.713631 - Last acc : 0.7775625 - Avg. acc : 0.7415960365853659 - Last test acc : 0.77875 - Avg. test acc : 0.7371219512195122 - Last f1 : 0.8012922223300748 - Avg. f1 : 0.7737093949670256 - Last test f1 : 0.8017172219993475 - Avg. test f1 : 0.769804214725979
+Epoch     50/1000   - Last Loss : 1.436609 - Avg. Loss : 1.633113 - Last Test Loss : 1.475902 - Avg. Test Loss : 1.668558 - Last acc : 0.783375 - Avg. acc : 0.7493958333333334 - Last test acc : 0.7775 - Avg. test acc : 0.744950980392157 - Last f1 : 0.80647703580522 - Avg. f1 : 0.7797924906670491 - Last test f1 : 0.7998409778086684 - Avg. test f1 : 0.7757098044453086
+Early stopping on epoch 57

@@ -1,1 +1,0 @@
-Hidden Layers = 4 - Layer Sizes = 2 - LR = 0.0001

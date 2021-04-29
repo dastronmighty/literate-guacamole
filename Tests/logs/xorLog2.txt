@@ -1,0 +1,24 @@
+====================
+Input size : 2
+Output size : 1
+====================
+layer 0 - tanh
+	Weights = 2x6
+	Biases = 1x6
+layer 1 - sigmoid
+	Weights = 6x1
+	Biases = 1x1
+====================
+Trainable Parameters : 25
+====================
+Epoch      0/10000  - Last Loss : 1.439641 - Avg. Loss : 1.439641 - Last Acc. : 0.25 - Avg. Acc. : 0.25 - Last Precision : 0.0 - Avg. Precision : 0.0 - Last Recall : 0.0 - Avg. Recall : 0.0
+Epoch   1000/10000  - Last Loss : 0.025285 - Avg. Loss : 0.197372 - Last Acc. : 1.0 - Avg. Acc. : 0.9922577422577422 - Last Precision : 1.0 - Avg. Precision : 0.9905094905094906 - Last Recall : 1.0 - Avg. Recall : 0.9905094905094906
+Epoch   2000/10000  - Last Loss : 0.010988 - Avg. Loss : 0.106884 - Last Acc. : 1.0 - Avg. Acc. : 0.9961269365317341 - Last Precision : 1.0 - Avg. Precision : 0.9952523738130935 - Last Recall : 1.0 - Avg. Recall : 0.9952523738130935
+Epoch   3000/10000  - Last Loss : 0.006803 - Avg. Loss : 0.074129 - Last Acc. : 1.0 - Avg. Acc. : 0.9974175274908363 - Last Precision : 1.0 - Avg. Precision : 0.9968343885371543 - Last Recall : 1.0 - Avg. Recall : 0.9968343885371543
+Epoch   4000/10000  - Last Loss : 0.004846 - Avg. Loss : 0.057031 - Last Acc. : 1.0 - Avg. Acc. : 0.9980629842539365 - Last Precision : 1.0 - Avg. Precision : 0.9976255936015996 - Last Recall : 1.0 - Avg. Recall : 0.9976255936015996
+Epoch   5000/10000  - Last Loss : 0.003724 - Avg. Loss : 0.046475 - Last Acc. : 1.0 - Avg. Acc. : 0.9984503099380124 - Last Precision : 1.0 - Avg. Precision : 0.9981003799240152 - Last Recall : 1.0 - Avg. Recall : 0.9981003799240152
+Epoch   6000/10000  - Last Loss : 0.003003 - Avg. Loss : 0.039287 - Last Acc. : 1.0 - Avg. Acc. : 0.9987085485752375 - Last Precision : 1.0 - Avg. Precision : 0.9984169305115814 - Last Recall : 1.0 - Avg. Recall : 0.9984169305115814
+Epoch   7000/10000  - Last Loss : 0.002503 - Avg. Loss : 0.034066 - Last Acc. : 1.0 - Avg. Acc. : 0.9988930152835309 - Last Precision : 1.0 - Avg. Precision : 0.9986430509927153 - Last Recall : 1.0 - Avg. Recall : 0.9986430509927153
+Epoch   8000/10000  - Last Loss : 0.002138 - Avg. Loss : 0.030098 - Last Acc. : 1.0 - Avg. Acc. : 0.9990313710786152 - Last Precision : 1.0 - Avg. Precision : 0.9988126484189477 - Last Recall : 1.0 - Avg. Recall : 0.9988126484189477
+Epoch   9000/10000  - Last Loss : 0.001861 - Avg. Loss : 0.026975 - Last Acc. : 1.0 - Avg. Acc. : 0.9991389845572715 - Last Precision : 1.0 - Avg. Precision : 0.9989445617153649 - Last Recall : 1.0 - Avg. Recall : 0.9989445617153649
+Epoch  10000/10000  - Last Loss : 0.001643 - Avg. Loss : 0.024453 - Last Acc. : 1.0 - Avg. Acc. : 0.9992250774922508 - Last Precision : 1.0 - Avg. Precision : 0.9990500949905009 - Last Recall : 1.0 - Avg. Recall : 0.9990500949905009

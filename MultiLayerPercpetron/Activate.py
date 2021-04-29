@@ -2,8 +2,15 @@ import numpy as np
 
 
 class Activate:
+    """
+    Activation Functions
+    Includes: linear, sigmoid, tanh, relu, and softmax
+    """
 
     def __init__(self, act_f):
+        """
+        :param act_f: choose which actiavtion function
+        """
         self.act_f = act_f
 
     def linear_forward(self, Z):
@@ -49,20 +56,28 @@ class Activate:
         dZ = dA * (1 - (t * t))
         return dZ
 
-    def softmax_forward(self, Z):
-        e = np.exp(Z)
-        A = e / np.sum(Z, axis=1)
+    def softmax_forward(self,Z):
+        s = len(Z.shape) - 1
+        Z_ = Z - np.max(Z)
+        A = (np.exp(Z_).T / np.sum(np.exp(Z_), axis=s)).T # only difference
         cache = {"Z": Z}
         return A, cache
 
     def softmax_back(self, dA, cache):
+        # softmax back function for mini-batches
+        # https://sgugger.github.io/a-simple-neural-net-in-numpy.html
         Z = cache["Z"]
-        sm, _ = self.softmax_forward(Z)
-        s = sm.reshape(-1, 1)
-        dZ = dA * (np.diagflat(s) - np.dot(s, s.T))
+        ax = len(Z.shape) - 1
+        s, _ = self.softmax_forward(Z)
+        dZ = s * (dA - (dA * s).sum(axis=ax)[:,None])
         return dZ
 
     def forward(self, Z):
+        """
+        Forward prop through the activation
+        :param Z: the output of the layer to activate
+        :return: the activation of the input
+        """
         if self.act_f == 'linear':
             return self.linear_forward(Z)
         elif self.act_f == 'sigmoid':
@@ -75,6 +90,12 @@ class Activate:
             return self.softmax_forward(Z)
 
     def backward(self, dA, cache):
+        """
+        Backward prop through the activation
+        :param dA: the derivate with respect output of the layer after
+        :param cache: the cache of the backprop
+        :return:  the derivative of the output with respect to the activation
+        """
         if self.act_f == 'linear':
             return self.linear_back(dA, cache)
         elif self.act_f == 'sigmoid':
@@ -85,4 +106,3 @@ class Activate:
             return self.tanh_back(dA, cache)
         elif self.act_f == 'softmax':
             return self.softmax_back(dA, cache)
-
