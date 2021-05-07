@@ -2,6 +2,7 @@ import numpy as np
 
 
 class Activate:
+
     """
     Activation Functions
     Includes: linear, sigmoid, tanh, relu, and softmax

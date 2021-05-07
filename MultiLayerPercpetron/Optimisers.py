@@ -2,6 +2,14 @@ import numpy as np
 
 
 def get_batches(X, Y, batch_size=32, seed=42):
+    """
+    Get randomly mixed batches from an input data
+    :param X: The X values to make into batch
+    :param Y: The labels values to make into the batches also
+    :param batch_size: the size of the batches to make
+    :param seed: the seed to use for random shuffling
+    :return: the batcnes
+    """
     np.random.seed(seed)
     n = X.shape[0]
     mini_batches = []
@@ -26,8 +34,16 @@ def get_batches(X, Y, batch_size=32, seed=42):
 
 
 class Optimiser:
+
+    """
+    The optimiser abstract class
+    """
     
     def __init__(self, learning_rate, name):
+        """
+        :param learning_rate: the learning rate
+        :param name: the name of the optimiser
+        """
         self.lr = learning_rate
         self.name = name
 
@@ -46,6 +62,12 @@ class SGD(Optimiser):
         super(SGD, self).__init__(learning_rate, "SGD")
 
     def update_params(self, model, grads):
+        """
+        Update the parameters of the model
+        :param model: the model
+        :param grads: the gradients to use
+        :return: the updated gradient
+        """
         for i, gl in enumerate(grads["layers"]):
             dW = gl["dW"]
             db = gl["db"]
@@ -69,6 +91,12 @@ class SGDMomentum(Optimiser):
             self.v.append(dv)
 
     def update_params(self, model, grads):
+        """
+        Update the parameters of the model
+        :param model: the model
+        :param grads: the gradients to use
+        :return: the updated gradient
+        """
         for i, gl in enumerate(grads["layers"]):
             self.v[i]["dvW"] = (self.beta*self.v[i]["dvW"])+((1-self.beta)*gl["dW"])
             self.v[i]["dvb"] = (self.beta * self.v[i]["dvb"]) + ((1 - self.beta) * gl["db"])
@@ -101,6 +129,12 @@ class ADAM(Optimiser):
             self.s.append(ds)
 
     def update_params(self, model, grads):
+        """
+        Update the parameters of the model
+        :param model: the model
+        :param grads: the gradients to use
+        :return: the updated gradient
+        """
         self.t += 1
 
         for i, gl in enumerate(grads["layers"]):

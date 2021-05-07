@@ -3,7 +3,14 @@ from MultiLayerPercpetron.Layer import Layer
 
 class MLP:
 
+    """
+    The Multi-Layer-Perceptron Class
+    """
+
     def __init__(self, params):
+        """
+        :param params: The parameters of the Multi Layer Perceptron class
+        """
         self.params = params
         self.layers = []
         for ac in params["activations"]:
@@ -11,6 +18,11 @@ class MLP:
         self.size = len(self.layers)
 
     def forward(self, X):
+        """
+        The forward pass through the perceptron
+        :param X: The X values to use
+        :return: The output and the caches
+        """
         caches = []
         A = X
         for i, l in enumerate(self.params["layers"]):
@@ -19,6 +31,13 @@ class MLP:
         return A, caches
 
     def single_back(self, i, dA, cache):
+        """
+        The single layer backprop
+        :param i: the index of the layer currently going back through
+        :param dA: The current error w.r.t the the layer
+        :param cache: The layer cache
+        :return: the derivatives of the layer
+        """
         dW, db, dA_prev = self.layers[i].backward(dA, cache)
         return {
             "dW": dW,
@@ -27,6 +46,12 @@ class MLP:
         }
 
     def backward(self, da_wrt_loss, caches):
+        """
+        The backwards pass through the MLP
+        :param da_wrt_loss: the derivative of the error w.r.t the loss
+        :param caches: the chaches from the forward prop
+        :return: the gradients of the network
+        """
         gradients = {}
         gradients["layers"] = [None for _ in range(self.size)]
 
@@ -43,6 +68,12 @@ class MLP:
         return gradients
 
     def predict(self, X, f):
+        """
+        Predict the output for X
+        :param X: the X values as input
+        :param f: the function to use to predict
+        :return: the predictions
+        """
         A, _c = self.forward(X)
         pred = f(A)
         return pred

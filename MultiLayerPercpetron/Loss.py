@@ -6,9 +6,15 @@ epsilon = np.finfo(float).eps
 class Loss:
 
     def __init__(self, loss_func):
+        """
+        :param loss_func: The loss funciton to use
+        """
         self.loss_func = loss_func
 
     def sum_absolute_error(self, y, y_pred):
+        """
+        the ablsolute error
+        """
         sae = np.nansum(np.abs((y_pred - y)), axis=0)
         sae = np.squeeze(sae)
         return sae

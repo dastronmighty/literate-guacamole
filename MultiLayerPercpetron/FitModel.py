@@ -15,6 +15,24 @@ def fit_model(model,
               x_test=None,
               y_test=None):
 
+    """
+    Fit a model to the data
+    :param model: The model to use
+    :param x_train: The train data input
+    :param y_train: The train labels
+    :param batch_size: The batch size to use
+    :param optim: The optimiser to use
+    :param loss_func: The loss function to use
+    :param logger: The logger to use
+    :param epochs: The number of epochs to train for
+    :param prediction_func: A prediction function to use when predicting with the model
+    :param y_func: A function to transform y
+    :param plotter: The plotter to use
+    :param x_test: The test X data
+    :param y_test: The test labels
+    :return: the trained model and the losses
+    """
+
     logger.log_summary(model)
     batches = get_batches(x_train, y_train, batch_size)
     test_available = (x_test is not None) and (y_test is not None)

@@ -19,7 +19,14 @@ metrics = {
 
 pred_func = lambda x: array_to_letter(x)
 
+
 def test_model(num, lr, hidden_layers):
+    """
+    Test the model
+    :param num: The number of the tesst
+    :param lr: The learning rate to use
+    :param hidden_layers: The hidden layer sizes
+    """
     net = MLP(gen_params(16, hidden_layers, 26, activations=['sigmoid', "softmax"]))
     optim = ADAM(net.params, lr)
     loss_func = Loss("bce")

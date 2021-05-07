@@ -1,5 +1,8 @@
 import numpy as np
 
+"""
+All the metrics
+"""
 
 class confusion_mat:
 

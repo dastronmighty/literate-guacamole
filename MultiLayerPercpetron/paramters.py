@@ -61,6 +61,17 @@ def gen_params(in_size,
                activations=None,
                weight_init="he",
                bias_init="zero", seed=42,):
+    """
+    Generate the parameters for a model
+    :param in_size: the input size of the model
+    :param hidden_layer_sizes: the size of the hidden layers
+    :param out_size: the output size
+    :param activations: the activations to use
+    :param weight_init: the initializer to use for the weights
+    :param bias_init: the initializer to use for the biases
+    :param seed: the seed to use
+    :return: the model parameters
+    """
     np.random.seed(seed)  # for reproducibility
     params = {}
     ls = [in_size] + hidden_layer_sizes + [out_size]
