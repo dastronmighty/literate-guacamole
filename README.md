@@ -1,5 +1,10 @@
 # Multi-Layer Perceptron
 
+
+### Requirements
+- Python 3
+- `pip install -r requirements.txt`
+
 ___
 
 ### Run the tests
@@ -29,3 +34,6 @@ pyton SinTests.py
 ```bash
 python LetterTests.py
 ```
+
+This will rewrite the files that are already in the output folders
+if you wish you can delete the content that is already there. 
