@@ -63,7 +63,7 @@ def Test_XOr_1():
 
 def Test_XOr_2():
     print("Test 2 - bigger model")
-    acts = ["tanh", "sigmoid", "tanh", "sigmoid"]
+    acts = ["tanh", "sigmoid"]
     params = gen_params(2, [6], 1, activations=acts)
     net = MLP(params)
     loss_func = Loss("bce")

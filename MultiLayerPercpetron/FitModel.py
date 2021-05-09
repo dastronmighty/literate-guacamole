@@ -14,7 +14,6 @@ def fit_model(model,
               plotter=None,
               x_test=None,
               y_test=None):
-
     """
     Fit a model to the data
     :param model: The model to use
@@ -33,6 +32,19 @@ def fit_model(model,
     :return: the trained model and the losses
     """
 
+    def fit_batches(model,
+                    batches,
+                    train=True):
+        for xb, yb, in batches:
+            a_out, caches = model.forward(xb)
+            i_loss = loss_func.forward(yb, a_out)
+            logger.log_loss(i_loss, train)
+            logger.log_mets(prediction_func(a_out), y_func(yb), train)
+            if optim is not None:
+                model = optim.backwards_step(yb, a_out, model, loss_func, caches)
+        logger.compress_stats(len(batches), train)
+        return model
+
     logger.log_summary(model)
     batches = get_batches(x_train, y_train, batch_size)
     test_available = (x_test is not None) and (y_test is not None)
@@ -46,21 +58,9 @@ def fit_model(model,
 
     for epoch in range(epochs + 1):
         logger.update_epoch(epoch, test_available)
-        for xb, yb, in batches:
-            a_out, caches = model.forward(xb)
-            i_loss = loss_func.forward(yb, a_out)
-            logger.log_loss(i_loss)
-            logger.log_mets(prediction_func(a_out), y_func(yb))
-            optim.backwards_step(yb, a_out, model, loss_func, caches)
-        logger.compress_stats(len(batches))
-
+        model = fit_batches(model, batches)
         if test_available:
-            for xb, yb, in test_batches:
-                test_a_out, _ = model.forward(xb)
-                i_loss = loss_func.forward(yb, test_a_out)
-                logger.log_loss(i_loss, False)
-                logger.log_mets(prediction_func(test_a_out), y_func(yb), False)
-            logger.compress_stats(len(test_batches), False)
+            model = fit_batches(model, test_batches, False)
 
         logger.log(epoch, epochs, test_available)
 
@@ -83,5 +83,4 @@ def fit_model(model,
             plotter.plot_mets(*logger.get_met_to_plot(k))
 
     return model, logger.losses
-
 

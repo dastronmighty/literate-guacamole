@@ -54,6 +54,7 @@ class Optimiser:
         da_wrt_loss = loss.backward(y, a_out)
         grads = model.backward(da_wrt_loss, cache)
         self.update_params(model, grads)
+        return model
 
 
 class SGD(Optimiser):

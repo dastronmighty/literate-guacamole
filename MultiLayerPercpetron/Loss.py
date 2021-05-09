@@ -20,8 +20,10 @@ class Loss:
         return sae
 
     def grad_sum_absolute_error(self, y, a_out):
+        m = y.shape[0]
         dl_wrt_Aout = ((a_out - y) > 0)*1 + ((a_out - y) <= 0)*-1
         dl_wrt_Aout = np.nansum(dl_wrt_Aout, axis=0)
+        dl_wrt_Aout *= 1 / m
         return dl_wrt_Aout
 
     def sum_squared_error(self, y, y_pred):
@@ -30,18 +32,20 @@ class Loss:
         return sse
 
     def grad_sum_squared_error(self, y, a_out):
+        m = y.shape[0]
         dl_wrt_Aout = 2*np.nansum(a_out - y, axis=0)
+        dl_wrt_Aout *= 1 / m
         return dl_wrt_Aout
 
     def mean_squared_error(self, y, y_pred):
-        n = y.shape[0]
-        mse = np.nansum(((y_pred - y) ** 2)) / (n + epsilon)
+        m = y.shape[0]
+        mse = np.nansum(((y_pred - y) ** 2)) / m
         mse = np.squeeze(mse)
         return mse
 
     def grad_mean_squared_error(self, y, a_out):
-        n = y.shape[0]
-        dl_wrt_Aout = (2 / n+epsilon) * np.nansum(a_out - y, axis=0)
+        m = y.shape[0]
+        dl_wrt_Aout = (1/m) * (2 / m) * np.nansum(a_out - y, axis=0)
         return dl_wrt_Aout
 
     def cross_ent_helper(self, y_pred):
@@ -51,7 +55,7 @@ class Loss:
     def binary_cross_entropy(self, y, y_pred):
         z = self.cross_ent_helper(y_pred)
         m = y.shape[1]  # m -> number of examples in the batch
-        bce = (1 / m) * np.sum(-y*np.log(z) - (1-y)*np.log(1-z))
+        bce = (1/m) * np.sum(-y*np.log(z) - (1-y)*np.log(1-z))
         bce = np.squeeze(bce)
         return bce
 

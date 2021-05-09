@@ -19,7 +19,7 @@ metrics = {
 }
 
 
-def test_model(model, optim, loss_func, name, logger, epochs=100000):
+def test_model(model, optim, loss_func, name, logger, epochs=25000):
     plotter = Plotter(name, x_dim_reduction=add_sub_sin_helper)
     net, losses = fit_model(model,
                             X_train,

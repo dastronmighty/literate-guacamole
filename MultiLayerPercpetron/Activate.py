@@ -57,7 +57,7 @@ class Activate:
         dZ = dA * (1 - (t * t))
         return dZ
 
-    def softmax_forward(self,Z):
+    def softmax_forward(self, Z):
         s = len(Z.shape) - 1
         Z_ = Z - np.max(Z)
         A = (np.exp(Z_).T / np.sum(np.exp(Z_), axis=s)).T # only difference

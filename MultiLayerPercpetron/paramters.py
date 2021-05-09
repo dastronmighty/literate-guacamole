@@ -10,12 +10,11 @@ def rand_init_large(m, p):
 
 
 def he_init(m, p):
-    return np.random.normal(0, (np.sqrt(2 / m)), size=(m, p))
+    return np.random.randn(m,p) * np.sqrt(2 / (p + m))
 
 
 def zero_init(m, p):
     return np.zeros((m, p))
-
 
 def one_init(m, p):
     return np.ones((m, p))

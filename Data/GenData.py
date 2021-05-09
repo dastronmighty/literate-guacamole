@@ -44,13 +44,11 @@ def one_hot_letter(letter):
     y[ALPHAB.index(letter)] = 1.0
     return y
 
-
 def process_line(line):
     y = one_hot_letter(line[0])
     x = line[2:]
     x = [float(_) for _ in x.split(",")]
     return x, y
-
 
 def gen_letter_data(test_percent=0.2):
     full_path = os.path.dirname(os.path.realpath(__file__))

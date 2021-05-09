@@ -34,7 +34,7 @@ def test_model(num, lr, hidden_layers):
                     f"LetterTest{num}.txt",
                     metrics,
                     verbose=10,
-                    early_stopping=10)
+                    early_stopping=100)
     plotter = Plotter(f"letterfigs/t{num}/letter test {num}",
                       x_dim_reduction=lambda x: x.sum(axis=1),
                       y_dim_reduction=lambda x: x.argmax(axis=1).flatten())
@@ -56,8 +56,7 @@ def test_model(num, lr, hidden_layers):
 make_folder(".", "letterfigs")
 test_number = 1
 for ls in [[10], [16], [32]]:
-    for lr in [0.1, 0.01, 0.001, 0.0001]:
+    for lr in [0.01, 0.001, 0.0001]:
         make_folder("./letterfigs", f"t{test_number}")
         test_model(test_number, lr, ls)
         test_number += 1
-
